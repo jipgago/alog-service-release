@@ -41,6 +41,6 @@ public class Note extends BaseTimeEntity implements Serializable{
         this.noteTitle = noteTitle;
         this.noteContent = noteContent;
         this.noteVersion = noteVersion;
-        this.noteFileLink = noteFileLink;
+      ;
     }
 }
