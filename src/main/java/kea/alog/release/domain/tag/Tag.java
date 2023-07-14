@@ -13,9 +13,8 @@ import lombok.NoArgsConstructor;
 
 @Component
 @Entity
-@Table(name = "category")
+@Table(name = "tag")
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Getter
 public class Tag extends BaseTimeEntity implements Serializable{
     
@@ -27,7 +26,7 @@ public class Tag extends BaseTimeEntity implements Serializable{
     @Column(name = "tag_content", length = 20)
     private String tagContent;
 
-    @Builder
+    @Builder(toBuilder = true)
     public Tag(String tagContent){
         this.tagContent = tagContent;
     }
