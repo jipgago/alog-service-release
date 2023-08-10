@@ -15,11 +15,11 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/noteTag")
+@RequestMapping("/api/release/noteTag")
 public class NoteTagController {
     final NoteTagService noteTagService;
 
-    @PostMapping("/addTag")
+    @PostMapping("/add")
     public ResponseEntity<Result> addTag(@RequestBody NoteTagDTO noteTagDTO){
         if(noteTagService.addTag(noteTagDTO)){
             Result result = Result.builder()
@@ -38,7 +38,7 @@ public class NoteTagController {
         
     }
 
-    @DeleteMapping("/deleteTag/{tagId}")
+    @DeleteMapping("/delete/{tagId}")
     public ResponseEntity<Result> deleteTag(@PathVariable Long tagId){
         noteTagService.deleteTag(tagId);
         Result result = Result.builder()

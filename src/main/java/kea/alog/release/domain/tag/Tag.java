@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import jakarta.persistence.*;
 import kea.alog.release.util.BaseTimeEntity;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

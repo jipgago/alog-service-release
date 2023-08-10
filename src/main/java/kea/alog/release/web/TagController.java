@@ -16,7 +16,7 @@ import kea.alog.release.web.DTO.TagDTO.*;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/tag")
+@RequestMapping("/api/release/tag")
 @RequiredArgsConstructor
 public class TagController {
     final TagService tagService;
@@ -37,7 +37,7 @@ public class TagController {
         }
     }
 
-    @GetMapping("/tagList/{currentPage}")
+    @GetMapping("/list/{currentPage}")
     public ResponseEntity<Result> getTagList(@PathVariable Long currentPage){
         TagPageingDTO rspDTO = tagService.getAllList(currentPage);
         // List<TagPrameterDTO> rspTagList = tagService.getAllList(currentPage);
@@ -49,7 +49,7 @@ public class TagController {
         return ResponseEntity.ok().body(result);
     }
 
-    @PostMapping("/createTag")
+    @PostMapping("/create")
     public ResponseEntity<Result> createTag(@RequestBody TagContentDTO request){
         if(request.getTagContent() != null){
             Long tagId = tagService.createTag(request);
@@ -68,7 +68,7 @@ public class TagController {
         
     }
 
-    @PutMapping("/updateTag/{tagId}")
+    @PutMapping("/update/{tagId}")
     public ResponseEntity<Result> updateTag(@RequestBody TagContentDTO contentDTO, @PathVariable Long tagId){
         Result result;
         if(tagService.updateTag(contentDTO, tagId)){
@@ -80,7 +80,7 @@ public class TagController {
         }
     }
 
-    @DeleteMapping("/deleteTag/{tagId}")
+    @DeleteMapping("/delete/{tagId}")
     public ResponseEntity<Result> deleteTag(@PathVariable Long tagId){
         tagService.deleteTag(tagId);
         Result result = Result.builder()

@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/note")
+@RequestMapping("/api/release/note")
 public class NoteController {
 
     final private NoteService noteService;
@@ -55,7 +55,7 @@ public class NoteController {
         }
     }
 
-    @PostMapping("/createNote")
+    @PostMapping("/create")
     public ResponseEntity<Result> createNote(@RequestBody NoteDTO.CreateNoteDTO request){
         if(request.ischkData()){
             Long id = noteService.createNote(request);
@@ -74,7 +74,7 @@ public class NoteController {
         }
     }
 
-    @PutMapping("/updateNote")
+    @PutMapping("/update")
     public ResponseEntity<Result> updateNote(@RequestBody NoteDTO.UpdateNoteDTO request){
         boolean chkSave = noteService.updatNote(request);
         if(chkSave){
@@ -93,7 +93,7 @@ public class NoteController {
         }
     }
 
-    @DeleteMapping("/deleteNote/{noteId}")
+    @DeleteMapping("/delete/{noteId}")
     public ResponseEntity<Result> deleteNote(@PathVariable Long noteId){
         noteService.deleteNote(noteId);
         Result result = Result.builder()

@@ -11,11 +11,11 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/noteImage")
+@RequestMapping("/api/release/note-image")
 public class NoteImageController {
     final private NoteImageService noteImageService;
 
-    @GetMapping("/getImage/{imageId}")
+    @GetMapping("/get/{imageId}")
     public ResponseEntity<Result> getNoteImage(@PathVariable Long imageId){
         TransNoteImageDTO rspDto = noteImageService.getImage(imageId);
         if(rspDto.chkData()){
@@ -34,7 +34,7 @@ public class NoteImageController {
         }
     }
 
-    @PostMapping("/addImage")
+    @PostMapping("/add")
     public ResponseEntity<Result> createNoteImage(@RequestBody TransNoteImageDTO reqDto){
         if(reqDto.chkData()){
             Long noteImageId = noteImageService.createImage(reqDto);
@@ -61,7 +61,7 @@ public class NoteImageController {
         }
     }
 
-    @PutMapping("/updateImage")
+    @PutMapping("/update")
     public ResponseEntity<Result> updateNoteImage(@RequestBody UpdateNoteImageDTO reqDto){
         UpdateNoteImageDTO rspDto = noteImageService.updateImage(reqDto);
         if(rspDto.chkData()){
@@ -79,7 +79,7 @@ public class NoteImageController {
             return ResponseEntity.badRequest().body(result);
         }
     }
-    @DeleteMapping("/deleteImage/{imageId}")
+    @DeleteMapping("/delete/{imageId}")
     public ResponseEntity<Result> deleteNoteImage(@PathVariable Long imageId){
         if(noteImageService.deleteImage(imageId)){
             Result result = Result.builder()
