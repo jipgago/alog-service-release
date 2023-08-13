@@ -35,8 +35,8 @@ public class NoteController {
         }
     }
 
-    @GetMapping("/list/{pjId}/{currentPage}")
-    public ResponseEntity<Result> getAllNote(@PathVariable("pjId") Long pjId, @PathVariable("currentPage") Long currentPage){
+    @GetMapping("/list/{pjId}/{currentPage}/{pageSet}")
+    public ResponseEntity<Result> getAllNote(@PathVariable("pjId") Long pjId, @PathVariable("currentPage") Long currentPage, @PathVariable("pageSet") Long pageSet){
         Result result;
         if(currentPage <= 0L){
             result = Result.builder()
@@ -45,7 +45,7 @@ public class NoteController {
                         .build();
             return ResponseEntity.badRequest().body(result);
         } else {
-            RspNoteListDTO responseNote = noteService.getAllNote(pjId, currentPage);
+            RspNoteListDTO responseNote = noteService.getAllNote(pjId, currentPage, pageSet);
             result = Result.builder()
                             .isSuccess(true)
                             .message("Success Load NoteList")

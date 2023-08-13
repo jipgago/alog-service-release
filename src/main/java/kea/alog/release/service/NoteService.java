@@ -53,10 +53,10 @@ public class NoteService {
         } else return false;
     }
     @Transactional
-    public RspNoteListDTO getAllNote(Long pjId, Long currentPage){
+    public RspNoteListDTO getAllNote(Long pjId, Long currentPage, Long reqSize){
         //List<Note> allNote = noteRepository.findAllByPjPk(pPk);
         
-        int pageSize = 2;//나중에 front랑 상의해서 정해야함
+        int pageSize = reqSize.intValue();//나중에 front랑 상의해서 정해야함
         //int offset = (((int) currentPage)-1) * pageSize; //맵핑
         Pageable pageable = PageRequest.of( currentPage.intValue()-1, pageSize, Sort.by("notePk").descending());
         

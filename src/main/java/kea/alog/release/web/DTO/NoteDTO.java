@@ -78,9 +78,9 @@ public class NoteDTO {
     @Getter
     @NoArgsConstructor
     public static class NoteListDTO{
-        private long notePk;
-        private long pjPk;
-        private long teamPk;
+        private Long notePk;
+        private Long pjPk;
+        private Long teamPk;
         private String noteTitle;
         private String noteContent;
         private String noteVersion;
@@ -89,7 +89,7 @@ public class NoteDTO {
         private LocalDateTime modifiedDate;
 
         @Builder
-        public NoteListDTO(long notePk, long pjPk, long teamPk, String noteTitle, String noteContent, String noteVersion, LocalDateTime createDate, LocalDateTime modifiedDate) {
+        public NoteListDTO(Long notePk, Long pjPk, Long teamPk, String noteTitle, String noteContent, String noteVersion, LocalDateTime createDate, LocalDateTime modifiedDate) {
             this.notePk = notePk;
             this.pjPk = pjPk;
             this.teamPk = teamPk;
