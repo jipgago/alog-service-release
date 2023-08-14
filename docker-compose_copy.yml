@@ -7,7 +7,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=1q2w3e4r!!
     ports:
-      - "30000:8080"
+      - "30001:8080"
     depends_on:
       "db":
         condition: service_healthy
@@ -24,9 +24,7 @@ services:
       timeout: 2s
       retries: 10
   redis:
-    image: redis:latest
-    ports:
-      - "6379:6379"
+    image: redis:latestc
     environment:
       - REDIS_MAXMEMORY=256mb
     healthcheck:

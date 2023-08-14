@@ -13,7 +13,6 @@ import lombok.*;
 @Entity
 @Table(name = "note")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Getter
 @JavaBean
 public class Note extends BaseTimeEntity implements Serializable{
@@ -39,7 +38,8 @@ public class Note extends BaseTimeEntity implements Serializable{
     private String noteVersion;
 
     @Builder(toBuilder = true)
-    public Note(Long pjPk, Long teamPk, String noteTitle, String noteContent, String noteVersion){
+    public Note(Long notePk, Long pjPk, Long teamPk, String noteTitle, String noteContent, String noteVersion){
+        this.notePk = notePk;
         this.pjPk = pjPk;
         this.teamPk = teamPk;
         this.noteTitle = noteTitle;

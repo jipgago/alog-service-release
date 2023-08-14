@@ -26,7 +26,8 @@ public class Tag extends BaseTimeEntity implements Serializable{
     private String tagContent;
 
     @Builder(toBuilder = true)
-    public Tag(String tagContent){
+    public Tag(Long tagPk, String tagContent){
+        this.tagPk = tagPk;
         this.tagContent = tagContent;
     }
 }

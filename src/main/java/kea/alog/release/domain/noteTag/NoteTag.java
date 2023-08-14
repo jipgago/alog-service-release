@@ -35,7 +35,8 @@ public class NoteTag extends BaseTimeEntity implements Serializable{
     private Tag tagPk;
 
     @Builder
-    public NoteTag(Note notePk, Tag tagPk){
+    public NoteTag(Long noteTagPk , Note notePk, Tag tagPk){
+        this.noteTagPk = noteTagPk;
         this.notePk = notePk;
         this.tagPk = tagPk;
     }
