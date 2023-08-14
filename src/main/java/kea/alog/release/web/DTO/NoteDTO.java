@@ -59,16 +59,16 @@ public class NoteDTO {
     @Getter
     @NoArgsConstructor
     public static class UpdateNoteDTO {
-        private Long noteId;
+        private Long notePk;
         private Long pjPk;
         private String noteTitle;
         private String noteContent;
         private String noteVersion;
 
         @Builder
-        public UpdateNoteDTO(Long noteId, Long pjPk, String noteTitle, String noteContent, String noteVersion){
+        public UpdateNoteDTO(Long notePk, Long pjPk, String noteTitle, String noteContent, String noteVersion){
             this.pjPk = pjPk;
-            this.noteId = noteId;
+            this.notePk = notePk;
             this.noteTitle = noteTitle;
             this.noteContent = noteContent;
             this.noteVersion = noteVersion;

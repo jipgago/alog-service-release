@@ -29,7 +29,8 @@ public class NoteImage {
     private Long filePk;
 
     @Builder(toBuilder = true)
-    public NoteImage(Note notePk, Long filePk){
+    public NoteImage(Long imageId, Note notePk, Long filePk){
+        this.imageId = imageId;
         this.notePk = notePk;
         this.filePk = filePk;
     }

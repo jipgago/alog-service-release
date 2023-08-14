@@ -74,7 +74,7 @@ public class NoteController {
         }
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/{notePk}")
     public ResponseEntity<Result> updateNote(@RequestBody NoteDTO.UpdateNoteDTO request){
         boolean chkSave = noteService.updatNote(request);
         if(chkSave){

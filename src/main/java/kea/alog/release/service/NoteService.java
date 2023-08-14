@@ -40,15 +40,17 @@ public class NoteService {
     }
     @Transactional
     public boolean updatNote(NoteDTO.UpdateNoteDTO request){
-        Optional<Note> loadNote = noteRepository.findById(request.getNoteId());
-        if(loadNote.isPresent() && loadNote.get().getPjPk()==request.getPjPk()){
+        Optional<Note> loadNote = noteRepository.findById(request.getNotePk());
+        if(loadNote.isPresent() && loadNote.get().getPjPk() == request.getPjPk()){
             Note setNote = loadNote.get();
-            setNote = setNote.toBuilder()
+            Note saveNote;
+            saveNote = setNote.toBuilder()
+
                             .noteTitle(request.getNoteTitle())
                             .noteContent(request.getNoteContent())
                             .noteVersion(request.getNoteVersion())
                             .build();
-            noteRepository.save(setNote);
+            noteRepository.save(saveNote);
             return true;
         } else return false;
     }
