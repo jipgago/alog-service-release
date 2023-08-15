@@ -1,5 +1,6 @@
 package kea.alog.release.web;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ public class NoteController {
 
     final private NoteService noteService;
 
+    @Operation(summary = "릴리즈 노트 상세조회", description = "릴리즈 노트 상세 조회")
     @GetMapping("/{notePk}")
     public ResponseEntity<Result> getNote(@PathVariable Long notePk){
         NoteDTO.SendNoteDTO note = noteService.getNote(notePk);
@@ -34,7 +36,7 @@ public class NoteController {
             return ResponseEntity.badRequest().body(result);
         }
     }
-
+    @Operation(summary = "프로젝트 릴리즈 노트 가져오기", description = "프로젝트 안에 있는 릴리즈 노트 페이징으로 가져오기")
     @GetMapping("/list/{pjId}/{currentPage}/{pageSet}")
     public ResponseEntity<Result> getAllNote(@PathVariable("pjId") Long pjId, @PathVariable("currentPage") Long currentPage, @PathVariable("pageSet") Long pageSet){
         Result result;
@@ -55,6 +57,7 @@ public class NoteController {
         }
     }
 
+    @Operation(summary = "릴리즈 노트 만들기", description = "릴리즈 노트 생성")
     @PostMapping("/create")
     public ResponseEntity<Result> createNote(@RequestBody NoteDTO.CreateNoteDTO request){
         if(request.ischkData()){
@@ -74,6 +77,7 @@ public class NoteController {
         }
     }
 
+    @Operation(summary = "릴리즈 노트 업데이트", description = "릴리즈 노트 업데이트")
     @PutMapping("/update/{notePk}")
     public ResponseEntity<Result> updateNote(@RequestBody NoteDTO.UpdateNoteDTO request){
         boolean chkSave = noteService.updatNote(request);
@@ -92,7 +96,7 @@ public class NoteController {
             return ResponseEntity.badRequest().body(result);
         }
     }
-
+    @Operation(summary = "릴리즈 노트 지우기", description = "릴리즈 노트 지우기")
     @DeleteMapping("/delete/{noteId}")
     public ResponseEntity<Result> deleteNote(@PathVariable Long noteId){
         noteService.deleteNote(noteId);

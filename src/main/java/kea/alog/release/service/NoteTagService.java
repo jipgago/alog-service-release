@@ -21,6 +21,11 @@ public class NoteTagService {
     final private NoteRepository noteRepository;
     final private TagRepository tagRepository;
 
+    /**
+     * 태그를 노트에 추가한다.
+     * @param noteTagDTO
+     * @return
+     */
     @Transactional
     public boolean addTag(NoteTagDTO noteTagDTO) {
         Optional<Tag> tag = tagRepository.findById(noteTagDTO.getTagId());
@@ -35,6 +40,10 @@ public class NoteTagService {
         } else return false;
     }
 
+    /**
+     * 노트태그를 지운다
+     * @param noteTagId
+     */
     @Transactional
     public void deleteTag(Long noteTagId){
         Optional<NoteTag> noteTag = noteTagRepository.findById(noteTagId);

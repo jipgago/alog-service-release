@@ -18,6 +18,12 @@ import kea.alog.release.web.DTO.NoteImageDTO.UpdateNoteImageDTO;
 public class NoteImageService {
     final private NoteRepository noteRepository;
     final private NoteImageRepository noteImageRepository;
+
+    /**
+     * 이미지를 가져옴
+     * @param imageId
+     * @return filePk, notePk
+     */
     @Transactional
     public TransNoteImageDTO getImage(Long imageId){
         Optional<NoteImage> optNoteImage = noteImageRepository.findById(imageId);
@@ -31,6 +37,12 @@ public class NoteImageService {
             return TransNoteImageDTO.builder().build();
         }
     }
+
+    /**
+     * 이미지 저장
+     * @param reqDto
+     * @return imageId
+     */
     @Transactional
     public Long createImage(TransNoteImageDTO reqDto){
         Optional<Note> note = noteRepository.findById(reqDto.getNotePk());
@@ -43,6 +55,12 @@ public class NoteImageService {
             return noteImg.getImageId();
         } else return 0L;
     }
+
+    /**
+     * 이미지 변경사항 저장
+     * @param reqDto
+     * @return UpdateNoteImageDto
+     */
     @Transactional
     public UpdateNoteImageDTO updateImage(UpdateNoteImageDTO reqDto){
         Optional<NoteImage> noteImg = noteImageRepository.findById(reqDto.getImageId());
@@ -57,6 +75,11 @@ public class NoteImageService {
         } return UpdateNoteImageDTO.builder().build();
     }
 
+    /**
+     * 이미지 저장
+     * @param imageId
+     * @return
+     */
     @Transactional
     public boolean deleteImage(Long imageId){
         Optional<NoteImage> noteImg = noteImageRepository.findById(imageId);
