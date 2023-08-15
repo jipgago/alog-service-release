@@ -43,6 +43,7 @@ public class NoteService {
                             .noteContent(request.getNoteContent())
                             .noteVersion(request.getNoteVersion())
                             .build();
+
         noteRepository.save(newNote);
         /**
          * 알림 보내는 로직
