@@ -21,12 +21,23 @@ import lombok.RequiredArgsConstructor;
 public class TagService {
     final private TagRepository tagRepository;
 
+    /**
+     * 태그를 만든다
+     * @param tagContentDTO
+     * @return tagPk
+     */
     @Transactional
     public Long createTag(TagContentDTO tagContentDTO){
         Tag tag = Tag.builder().tagContent(tagContentDTO.getTagContent()).build();
         tagRepository.save(tag);
         return tag.getTagPk();
     }
+
+    /**
+     * 태그 상세조회
+     * @param tagId
+     * @return tagContents
+     */
     @Transactional
     public TagContentDTO getTag(Long tagId){
         Optional<Tag> optTag = tagRepository.findById(tagId);
@@ -36,6 +47,12 @@ public class TagService {
         } return TagContentDTO.builder().build();
     }
 
+    /**
+     * 태그 변경사항 저장
+     * @param tagContentDTO
+     * @param tagId
+     * @return
+     */
     @Transactional
     public boolean updateTag(TagContentDTO tagContentDTO, Long tagId){
         Optional<Tag> optTag = tagRepository.findById(tagId);
@@ -46,6 +63,10 @@ public class TagService {
         } else return false;
     }
 
+    /**
+     * 태그 지우기
+     * @param tagId
+     */
     @Transactional
     public void deleteTag(Long tagId){
         Optional<Tag> optTag = tagRepository.findById(tagId);
@@ -53,6 +74,12 @@ public class TagService {
             tagRepository.delete(optTag.get());
         }
     }
+
+    /**
+     * 태그 전부 가져오는데 페이징
+     * @param currentPage
+     * @return
+     */
     @Transactional
     public TagPageingDTO getAllList(Long currentPage){
         int pageSize = 10;

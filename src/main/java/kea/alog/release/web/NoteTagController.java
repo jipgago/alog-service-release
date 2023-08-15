@@ -1,5 +1,6 @@
 package kea.alog.release.web;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class NoteTagController {
     final NoteTagService noteTagService;
 
+    @Operation(summary = "노트 태그 추가", description = "노트 태그를 추가합니다.")
     @PostMapping("/add")
     public ResponseEntity<Result> addTag(@RequestBody NoteTagDTO noteTagDTO){
         if(noteTagService.addTag(noteTagDTO)){
@@ -38,6 +40,7 @@ public class NoteTagController {
         
     }
 
+    @Operation(summary = "태그삭제", description = "태그를 삭제합니다.")
     @DeleteMapping("/delete/{tagId}")
     public ResponseEntity<Result> deleteTag(@PathVariable Long tagId){
         noteTagService.deleteTag(tagId);
