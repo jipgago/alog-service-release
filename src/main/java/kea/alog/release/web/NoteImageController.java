@@ -1,5 +1,6 @@
 package kea.alog.release.web;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class NoteImageController {
     final private NoteImageService noteImageService;
 
+    @Operation(summary = "이미지 가져오기", description = "이미지 아이디로 이미지를 가져옵니다.")
     @GetMapping("/get/{imageId}")
     public ResponseEntity<Result> getNoteImage(@PathVariable Long imageId){
         TransNoteImageDTO rspDto = noteImageService.getImage(imageId);
@@ -34,6 +36,7 @@ public class NoteImageController {
         }
     }
 
+    @Operation(summary = "이미지 추가", description = "이미지를 추가합니다.")
     @PostMapping("/add")
     public ResponseEntity<Result> createNoteImage(@RequestBody TransNoteImageDTO reqDto){
         if(reqDto.chkData()){
@@ -61,6 +64,7 @@ public class NoteImageController {
         }
     }
 
+    @Operation(summary = "이미지 변경", description = "이미지를 변경합니다.")
     @PutMapping("/update")
     public ResponseEntity<Result> updateNoteImage(@RequestBody UpdateNoteImageDTO reqDto){
         UpdateNoteImageDTO rspDto = noteImageService.updateImage(reqDto);
@@ -79,6 +83,7 @@ public class NoteImageController {
             return ResponseEntity.badRequest().body(result);
         }
     }
+    @Operation(summary = "삭제", description = "이미지를 삭제합니다.")
     @DeleteMapping("/delete/{imageId}")
     public ResponseEntity<Result> deleteNoteImage(@PathVariable Long imageId){
         if(noteImageService.deleteImage(imageId)){

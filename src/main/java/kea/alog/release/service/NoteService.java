@@ -25,6 +25,11 @@ public class NoteService {
     @Autowired
     final private NoteRepository noteRepository;
 
+    /**
+     * 노트를 저장하는 로직
+     * @param request
+     * @return notePk
+     */
     @Transactional
     public Long createNote(NoteDTO.CreateNoteDTO request) { //Redirect를 url값들로 보내달라.
         Note newNote = Note.builder()
@@ -38,6 +43,12 @@ public class NoteService {
         noteRepository.save(newNote);
         return newNote.getNotePk();
     }
+
+    /**
+     * 노트 업데이트
+     * @param request
+     * @return boolean
+     */
     @Transactional
     public boolean updatNote(NoteDTO.UpdateNoteDTO request){
         Optional<Note> loadNote = noteRepository.findById(request.getNotePk());
@@ -45,7 +56,6 @@ public class NoteService {
             Note setNote = loadNote.get();
             Note saveNote;
             saveNote = setNote.toBuilder()
-
                             .noteTitle(request.getNoteTitle())
                             .noteContent(request.getNoteContent())
                             .noteVersion(request.getNoteVersion())
@@ -54,6 +64,14 @@ public class NoteService {
             return true;
         } else return false;
     }
+
+    /**
+     * note 전부 가져오기 페이징
+     * @param pjId
+     * @param currentPage
+     * @param reqSize
+     * @return
+     */
     @Transactional
     public RspNoteListDTO getAllNote(Long pjId, Long currentPage, Long reqSize){
         //List<Note> allNote = noteRepository.findAllByPjPk(pPk);
@@ -85,6 +103,12 @@ public class NoteService {
                                                     .build();
         return rspNoteListDTO;
     }
+
+    /**
+     * 노트를 상세조회
+     * @param notePk
+     * @return noteDto
+     */
     @Transactional
     public NoteDTO.SendNoteDTO getNote(Long notePk){
         Optional<Note> optNote = noteRepository.findById(notePk);
@@ -101,6 +125,10 @@ public class NoteService {
         } return null;
     }
 
+    /**
+     * 노트를 지운다.
+     * @param noteId
+     */
     @Transactional
     public void deleteNote(Long noteId) {
         Optional<Note> optNote = noteRepository.findById(noteId);

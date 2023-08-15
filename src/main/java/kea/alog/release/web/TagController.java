@@ -1,5 +1,6 @@
 package kea.alog.release.web;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class TagController {
     final TagService tagService;
 
+    @Operation(summary = "태그 불러오기", description = "태그를 한개 상세조회합니다.")
     @GetMapping("/{tagId}")
     public ResponseEntity<Result> getTag(@PathVariable Long tagId){
         TagContentDTO tag = tagService.getTag(tagId);
@@ -37,6 +39,7 @@ public class TagController {
         }
     }
 
+    @Operation(summary = "태그리스트", description = "태그 리스트를 10개 불러옵니다.")
     @GetMapping("/list/{currentPage}")
     public ResponseEntity<Result> getTagList(@PathVariable Long currentPage){
         TagPageingDTO rspDTO = tagService.getAllList(currentPage);
@@ -49,6 +52,7 @@ public class TagController {
         return ResponseEntity.ok().body(result);
     }
 
+    @Operation(summary = "태그 만들기", description = "태그 만들기")
     @PostMapping("/create")
     public ResponseEntity<Result> createTag(@RequestBody TagContentDTO request){
         if(request.getTagContent() != null){
@@ -67,7 +71,7 @@ public class TagController {
         }
         
     }
-
+    @Operation(summary = "태그 업데이트", description = "태그의 변경사항을 저장합니다.")
     @PutMapping("/update/{tagId}")
     public ResponseEntity<Result> updateTag(@RequestBody TagContentDTO contentDTO, @PathVariable Long tagId){
         Result result;
@@ -80,6 +84,7 @@ public class TagController {
         }
     }
 
+    @Operation(summary = "태그를 삭제합니다", description = "태그를 삭제합니다.")
     @DeleteMapping("/delete/{tagId}")
     public ResponseEntity<Result> deleteTag(@PathVariable Long tagId){
         tagService.deleteTag(tagId);
