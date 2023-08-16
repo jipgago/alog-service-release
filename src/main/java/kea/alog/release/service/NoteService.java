@@ -27,8 +27,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class NoteService {
-    final private NotiFeign notiFeign;
-    final private AggrFeign aggrFeign;
+    private NotiFeign notiFeign;
+    private AggrFeign aggrFeign;
     final private NoteRepository noteRepository;
 
     /**
