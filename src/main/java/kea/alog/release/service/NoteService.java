@@ -8,6 +8,8 @@ import kea.alog.release.feign.AggrFeign;
 import kea.alog.release.feign.NotiFeign;
 import kea.alog.release.web.DTO.AggregatorDto.*;
 import kea.alog.release.web.DTO.NotiDto;
+import org.aspectj.bridge.Message;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +45,6 @@ public class NoteService {
                             .noteContent(request.getNoteContent())
                             .noteVersion(request.getNoteVersion())
                             .build();
-
         noteRepository.save(newNote);
         /**
          * 알림 보내는 로직
