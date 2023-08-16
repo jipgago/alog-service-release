@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import kea.alog.release.web.DTO.AggregatorDto.*;
+import kea.alog.release.web.DTO.NotiDto;
+import lombok.AllArgsConstructor;
+import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,7 +26,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class NoteService {
-    @Autowired
+    final private NotiFeign notiFeign;
+    final private AggrFeign aggrFeign;
     final private NoteRepository noteRepository;
 
     /**
@@ -39,8 +44,18 @@ public class NoteService {
                             .noteContent(request.getNoteContent())
                             .noteVersion(request.getNoteVersion())
                             .build();
-
         noteRepository.save(newNote);
+        /**
+         * 알림 보내는 로직
+         */
+        ResponseDto<PageDto<UserResponseDto>> memberInfo = aggrFeign.findMembers(request.getPjPk(),null,1,100);
+        List<UserResponseDto> member = memberInfo.getData().getContent();
+        StringBuilder sb = new StringBuilder();
+        sb.append("릴리즈 노트가 생성되었습니다.");
+        for(UserResponseDto index : member){
+            NotiDto.MessageDto messageDto = NotiDto.MessageDto.builder().userPk(index.getUserPk()).msgContent(sb.toString()).build();
+            notiFeign.create(messageDto);
+        }
         return newNote.getNotePk();
     }
 
@@ -61,6 +76,17 @@ public class NoteService {
                             .noteVersion(request.getNoteVersion())
                             .build();
             noteRepository.save(saveNote);
+            /**
+             * 알림 보내는 로직
+             */
+            ResponseDto<PageDto<UserResponseDto>> memberInfo = aggrFeign.findMembers(setNote.getPjPk(),null,1,100);
+            List<UserResponseDto> member = memberInfo.getData().getContent();
+            StringBuilder sb = new StringBuilder();
+            sb.append("릴리즈 노트가 수정되었습니다.");
+            for(UserResponseDto index : member){
+                NotiDto.MessageDto messageDto = NotiDto.MessageDto.builder().userPk(index.getUserPk()).msgContent(sb.toString()).build();
+                notiFeign.create(messageDto);
+            }
             return true;
         } else return false;
     }
