@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import kea.alog.release.web.DTO.AggregatorDto.*;
 import kea.alog.release.web.DTO.NotiDto;
+import lombok.AllArgsConstructor;
 import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,9 +26,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class NoteService {
-
-    private NotiFeign notiFeign;
-    private AggrFeign aggrFeign;
+    final private NotiFeign notiFeign;
+    final private AggrFeign aggrFeign;
     final private NoteRepository noteRepository;
 
     /**
@@ -51,7 +51,7 @@ public class NoteService {
         ResponseDto<PageDto<UserResponseDto>> memberInfo = aggrFeign.findMembers(request.getPjPk(),null,1,100);
         List<UserResponseDto> member = memberInfo.getData().getContent();
         StringBuilder sb = new StringBuilder();
-        sb.append(request.getNoteVersion()).append(" 버전의 ").append(request.getNoteTitle()).append(" 릴리즈 노트가 생성되었습니다.");
+        sb.append("릴리즈 노트가 생성되었습니다.");
         for(UserResponseDto index : member){
             NotiDto.MessageDto messageDto = NotiDto.MessageDto.builder().userPk(index.getUserPk()).msgContent(sb.toString()).build();
             notiFeign.create(messageDto);
@@ -82,7 +82,7 @@ public class NoteService {
             ResponseDto<PageDto<UserResponseDto>> memberInfo = aggrFeign.findMembers(setNote.getPjPk(),null,1,100);
             List<UserResponseDto> member = memberInfo.getData().getContent();
             StringBuilder sb = new StringBuilder();
-            sb.append(request.getNoteVersion()).append(" 버전의 ").append(request.getNoteTitle()).append(" 릴리즈 노트가 수정되었습니다.");
+            sb.append("릴리즈 노트가 수정되었습니다.");
             for(UserResponseDto index : member){
                 NotiDto.MessageDto messageDto = NotiDto.MessageDto.builder().userPk(index.getUserPk()).msgContent(sb.toString()).build();
                 notiFeign.create(messageDto);

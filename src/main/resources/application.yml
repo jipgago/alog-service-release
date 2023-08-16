@@ -22,9 +22,9 @@ springdoc:
   swagger-ui:
     path: /api/release/swagger
 
-notification:
+notice:
   service:
-    url: ${NOTIFICATION_SERVICE_URL}
+    url: ${NOTICE_SERVICE_URL}
 aggregator:
   service:
     url: ${AGGREGATOR_SERVICE_URL}

@@ -8,7 +8,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=1q2w3e4r!!
       - REDIS_PORT=6379
       - REDIS_HOST=redis
-      - NOTIFICATION_SERVICE_URL=
+      - NOTICE_SERVICE_URL=
       - AGGREGATOR_SERVICE_URL=
     ports:
       - "8085:8081"
