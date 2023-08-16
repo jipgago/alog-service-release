@@ -6,12 +6,16 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/alog_release?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=1q2w3e4r!!
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
+      - NOTIFICATION_SERVICE_URL=
+      - AGGREGATOR_SERVICE_URL=
     ports:
-      - "30001:8080"
+      - "8085:8081"
     depends_on:
       "db":
         condition: service_healthy
-      "redis": 
+      "redis":
         condition: service_healthy
   db:
     image: mysql:latest
@@ -24,7 +28,7 @@ services:
       timeout: 2s
       retries: 10
   redis:
-    image: redis:latestc
+    image: redis:latest
     environment:
       - REDIS_MAXMEMORY=256mb
     healthcheck:
