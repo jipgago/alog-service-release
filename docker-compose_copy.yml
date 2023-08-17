@@ -11,7 +11,7 @@ services:
       - NOTICE_SERVICE_URL=
       - AGGREGATOR_SERVICE_URL=
     ports:
-      - "8085:8081"
+      - "8085:8085"
     depends_on:
       "db":
         condition: service_healthy
