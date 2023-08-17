@@ -1,4 +1,4 @@
-package kea.alog.release.service;
+package kea.alog.release.feign;
 
 import kea.alog.release.web.DTO.AggregatorDto.*;
 import org.springframework.cloud.openfeign.FeignClient;
