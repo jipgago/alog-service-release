@@ -8,7 +8,6 @@ import kea.alog.release.feign.AggrFeign;
 import kea.alog.release.feign.NotiFeign;
 import kea.alog.release.web.DTO.AggregatorDto.*;
 import kea.alog.release.web.DTO.NotiDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,16 +25,14 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class NoteService {
-
     final private NotiFeign notiFeign;
     final private AggrFeign aggrFeign;
-
     final private NoteRepository noteRepository;
 
     /**
      * 노트를 저장하는 로직
      * @param request
-     * @return notePk
+     * @return Long
      */
     @Transactional
     public Long createNote(NoteDTO.CreateNoteDTO request) { //Redirect를 url값들로 보내달라.
