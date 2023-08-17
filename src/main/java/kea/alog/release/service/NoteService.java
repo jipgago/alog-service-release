@@ -35,7 +35,7 @@ public class NoteService {
      * @return Long
      */
     @Transactional
-    public Long createNote(NoteDTO.CreateNoteDTO request) { //Redirect를 url값들로 보내달라.
+    public Long createNote(NoteDTO.CreateNoteDTO request, String token) { //Redirect를 url값들로 보내달라.
         Note newNote = Note.builder()
                             .noteTitle(request.getNoteTitle())
                             .pjPk(request.getPjPk())
@@ -47,7 +47,7 @@ public class NoteService {
         /**
          * 알림 보내는 로직
          */
-        ResponseDto<PageDto<UserResponseDto>> memberInfo = aggrFeign.findMembers(request.getPjPk(),null,1,100);
+        ResponseDto<PageDto<UserResponseDto>> memberInfo = aggrFeign.findMembers(request.getPjPk(),null,1,100, token);
         List<UserResponseDto> member = memberInfo.getData().getContent();
         StringBuilder sb = new StringBuilder();
         sb.append("릴리즈 노트가 생성되었습니다.");
@@ -64,7 +64,7 @@ public class NoteService {
      * @return boolean
      */
     @Transactional
-    public boolean updatNote(NoteDTO.UpdateNoteDTO request){
+    public boolean updatNote(NoteDTO.UpdateNoteDTO request, String token){
         Optional<Note> loadNote = noteRepository.findById(request.getNotePk());
         if(loadNote.isPresent() && loadNote.get().getPjPk() == request.getPjPk()){
             Note setNote = loadNote.get();
@@ -78,7 +78,7 @@ public class NoteService {
             /**
              * 알림 보내는 로직
              */
-            ResponseDto<PageDto<UserResponseDto>> memberInfo = aggrFeign.findMembers(setNote.getPjPk(),null,1,100);
+            ResponseDto<PageDto<UserResponseDto>> memberInfo = aggrFeign.findMembers(setNote.getPjPk(),null,1,100, token);
             List<UserResponseDto> member = memberInfo.getData().getContent();
             StringBuilder sb = new StringBuilder();
             sb.append("릴리즈 노트가 수정되었습니다.");
