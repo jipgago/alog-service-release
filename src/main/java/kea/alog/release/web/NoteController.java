@@ -21,7 +21,7 @@ public class NoteController {
     @GetMapping("/{notePk}")
     public ResponseEntity<Result> getNote(@PathVariable Long notePk){
         NoteDTO.SendNoteDTO note = noteService.getNote(notePk);
-        if(note.ischkData()){
+        if(note != null){
             Result result = Result.builder()
                             .isSuccess(true)
                             .data(note)
@@ -59,9 +59,9 @@ public class NoteController {
 
     @Operation(summary = "릴리즈 노트 만들기", description = "릴리즈 노트 생성")
     @PostMapping("/create")
-    public ResponseEntity<Result> createNote(@RequestHeader("Authorization") String jwt, @RequestBody NoteDTO.CreateNoteDTO request){
+    public ResponseEntity<Result> createNote(@RequestBody NoteDTO.CreateNoteDTO request){
         if(request.ischkData()){
-            Long id = noteService.createNote(request, jwt);
+            Long id = noteService.createNote(request);
             Result result = Result.builder()
                                 .isSuccess(true)
                                 .message("Success Saved.")
@@ -79,8 +79,8 @@ public class NoteController {
 
     @Operation(summary = "릴리즈 노트 업데이트", description = "릴리즈 노트 업데이트")
     @PutMapping("/update/{notePk}")
-    public ResponseEntity<Result> updateNote(@RequestHeader("Authorization") String jwt ,@RequestBody NoteDTO.UpdateNoteDTO request){
-        boolean chkSave = noteService.updatNote(request, jwt);
+    public ResponseEntity<Result> updateNote(@RequestBody NoteDTO.UpdateNoteDTO request){
+        boolean chkSave = noteService.updatNote(request);
         if(chkSave){
             Result result = Result.builder()
                             .isSuccess(true)

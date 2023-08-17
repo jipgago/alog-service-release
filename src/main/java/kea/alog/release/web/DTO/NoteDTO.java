@@ -28,9 +28,6 @@ public class NoteDTO {
             this.modifiedDate = modifiedDate;
         }
 
-        public boolean ischkData() {
-            return this.noteTitle != null || this.noteContent != null || this.noteVersion != null;
-        }
     }
 
 

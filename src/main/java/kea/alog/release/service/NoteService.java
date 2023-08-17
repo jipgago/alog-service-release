@@ -8,8 +8,6 @@ import kea.alog.release.feign.AggrFeign;
 import kea.alog.release.feign.NotiFeign;
 import kea.alog.release.web.DTO.AggregatorDto.*;
 import kea.alog.release.web.DTO.NotiDto;
-import org.aspectj.bridge.Message;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,7 +36,7 @@ public class NoteService {
      * @return Long
      */
     @Transactional
-    public Long createNote(NoteDTO.CreateNoteDTO request, String token) { //Redirect를 url값들로 보내달라.
+    public Long createNote(NoteDTO.CreateNoteDTO request) { //Redirect를 url값들로 보내달라.
         Note newNote = Note.builder()
                             .noteTitle(request.getNoteTitle())
                             .pjPk(request.getPjPk())
@@ -50,7 +48,7 @@ public class NoteService {
         /**
          * 알림 보내는 로직
          */
-        ResponseDto<PageDto<UserResponseDto>> memberInfo = aggrFeign.findMembers(request.getPjPk(),null,1,100, token);
+        ResponseDto<PageDto<UserResponseDto>> memberInfo = aggrFeign.findMembers(request.getPjPk(),null,0,100);
         List<UserResponseDto> member = memberInfo.getData().getContent();
         StringBuilder sb = new StringBuilder();
         sb.append("릴리즈 노트가 생성되었습니다.");
@@ -67,7 +65,7 @@ public class NoteService {
      * @return boolean
      */
     @Transactional
-    public boolean updatNote(NoteDTO.UpdateNoteDTO request, String token){
+    public boolean updatNote(NoteDTO.UpdateNoteDTO request){
         Optional<Note> loadNote = noteRepository.findById(request.getNotePk());
         if(loadNote.isPresent() && loadNote.get().getPjPk() == request.getPjPk()){
             Note setNote = loadNote.get();
@@ -81,7 +79,7 @@ public class NoteService {
             /**
              * 알림 보내는 로직
              */
-            ResponseDto<PageDto<UserResponseDto>> memberInfo = aggrFeign.findMembers(setNote.getPjPk(),null,1,100, token);
+            ResponseDto<PageDto<UserResponseDto>> memberInfo = aggrFeign.findMembers(setNote.getPjPk(),null,0,100);
             List<UserResponseDto> member = memberInfo.getData().getContent();
             StringBuilder sb = new StringBuilder();
             sb.append("릴리즈 노트가 수정되었습니다.");
