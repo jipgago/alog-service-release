@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import kea.alog.release.feign.AggrFeign;
+import kea.alog.release.feign.NotiFeign;
 import kea.alog.release.web.DTO.AggregatorDto.*;
 import kea.alog.release.web.DTO.NotiDto;
-import lombok.AllArgsConstructor;
-import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,8 +26,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class NoteService {
-    private NotiFeign notiFeign;
-    private AggrFeign aggrFeign;
+
+    final private NotiFeign notiFeign;
+    final private AggrFeign aggrFeign;
+
     final private NoteRepository noteRepository;
 
     /**
